@@ -1,0 +1,13 @@
+
+
+
+minikube start
+minikube dashboard
+
+kubectl apply -f <filename>.yaml
+
+kubectl get all
+
+minikube service <service-name>
+kubectl get services
+kubectl delete service <filename>

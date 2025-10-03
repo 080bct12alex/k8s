@@ -1,0 +1,30 @@
+
+
+- run each containers in separate pods
+   - connect mongodb using host,port through env   
+
+-  refered image : node-mongo-app:02 
+   - as express connect mongodb using host i.e service name of mongodb,port through env 
+
+###
+COMMANDS: (order matter)    
+    kubectl apply -f mongo-db.yml
+    kubectl get all
+    kubectl apply -f mongo-config.yml
+    kubectl apply -f node-mongo-app.yml
+    minikube service service-node-mongo-app-multi-pod
+
+Monitor the status of  deployments, pods, and services.
+     minikube dashboard
+
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-mongo-app:02 .
+docker login
+docker push 080bct12/node-mongo-app:02
+
+
+###
+limitation:
+here can come a issue if we do task like changing db  that replace the pot that contain db that can cause loss of data 

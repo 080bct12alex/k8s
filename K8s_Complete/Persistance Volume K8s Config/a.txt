@@ -1,0 +1,24 @@
+
+
+= use other files same as from multi pod
+  add host-pv.yml , host-pvc.yml and replace mongo-db.yml 
+     as additional pvc included in  mongo-db.yml 
+
+###
+COMMANDS: (order matter)
+    kubectl apply -f host-pv.yml
+    kubectl get pv
+    kubectl apply -f host-pvc.yml
+    kubectl get pvc
+    kubectl apply -f mongo-db.yml
+    
+    minikube service service-node-mongo-app-multi-pod
+    
+Monitor the status of  deployments, pods, and services.
+     minikube dashboard
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-mongo-app:02 .
+docker login
+docker push 080bct12/node-mongo-app:02

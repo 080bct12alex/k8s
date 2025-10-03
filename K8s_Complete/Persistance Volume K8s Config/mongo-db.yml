@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mongo-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongo-app
+  template:
+    metadata:
+      labels:
+        app: mongo-app 
+    spec:
+      containers:
+        - name: mongo-app   
+          image: mongo:latest  # official mongo image from dockerhub
+          volumeMounts: # tell mongo container to use the volume
+                        # from here added for persistent volume
+                        # without this, data will be lost when pod restarts
+                        # as self-hosted mongo stores data inside the container
+                        # also need to create pv and pvc first (see pv and pvc files)
+            - mountPath: /data/db # default path for mongo data
+              name: mongo-vol   # name should match with volume name below
+      volumes:
+        - name: mongo-vol
+          persistentVolumeClaim: 
+            claimName: host-pvc  # name of the pvc created in pvc file
+    
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-mongodb
+spec:
+  selector:
+    app: mongo-app
+  ports: # from here added for mongo port
+    - name: tcp 
+      port: 27017  
+      targetPort: 27017  
+  

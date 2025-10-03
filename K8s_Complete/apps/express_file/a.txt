@@ -1,0 +1,26 @@
+
+- its image--> node-file-app:01
+  save in file   instead of mongodb 
+
+- hostpath volume k8s config
+
+
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-file-app:01 .
+docker login
+docker push 080bct12/node-file-app:01
+
+
+
+new update node-file-app:02
+
+docker build -t 080bct12/node-file-app:02 .
+docker login
+docker push 080bct12/node-file-app:02
+
+
+
+
+note can use 01 or 02 

@@ -1,0 +1,16 @@
+###
+express:node-app connect with mongodb
+
+2. run multiple containers in single pod
+     - refered image : node-mongo-app:02  
+         - as express connect mongodb using host i.e service name of mongodb,port through env 
+
+
+### 
+Docker COMMANDS:
+docker build -t 080bct12/node-mongo-app:02 .
+docker login
+docker push 080bct12/node-mongo-app:02
+
+
+also used in persistance volume

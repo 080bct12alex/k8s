@@ -1,0 +1,7 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: mongo-config    # refer in node-app.yml for env variables
+data:
+  MONGO_HOST: "service-mongodb"   # service name of mongo-db.yml  
+  MONGO_PORT: "27017"             # same port as defined in mongo-db.yml targetPort

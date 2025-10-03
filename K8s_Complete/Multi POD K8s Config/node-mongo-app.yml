@@ -1,0 +1,45 @@
+# MongoDB Deployment and Service Config
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-mongo-app-multi-pod
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-mongo-app-multi-pod
+  template:
+    metadata:
+      labels:
+        app: node-mongo-app-multi-pod
+    spec:
+      containers:
+      - name: node-mongo-app-multi-pod
+        image: 080bct12/node-mongo-app:02
+        env: # added for configMap
+          - name: MONGO_HOST 
+            valueFrom: 
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_HOST
+          - name: MONGO_PORT
+            valueFrom:
+              configMapKeyRef:
+                name: mongo-config
+                key: MONGO_PORT
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-node-mongo-app-multi-pod
+spec:
+  ports:
+    - name: http
+      port: 8080         # Port exposed by the Service
+      targetPort: 3000   # Port on which Node.js app is running inside the Pod
+  selector:
+    app: node-mongo-app-multi-pod
+  type: LoadBalancer

@@ -1,0 +1,24 @@
+
+Docker COMMANDS:
+docker build -t 080bct12/node-app:00 .
+docker login
+docker push 080bct12/node-app:00
+
+docker images
+
+docker run --name node-app -p 3000:3000 --link mongo -d 080bct12/node-mongo-app:01
+
+
+
+
+
+
+
+
+
+
+Note: yourdockerhubusername/your-app-name:latest
+                  or
+      yourdockerhubusername/your-app-name:v1
+                   or                               for version 
+      yourdockerhubusername/your-app-name:1     

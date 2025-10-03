@@ -1,0 +1,46 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  
+  name: node-mongo-app-single-pod
+spec:
+  
+  replicas: 2  
+  selector:
+    matchLabels:
+      app: node-mongo-app-single-pod   # Matches the label of the Pods / template below 
+
+  template:
+    metadata:
+      labels: 
+        app: node-mongo-app-single-pod 
+                        
+    spec:
+      # Single Pod with Two Containers
+      containers:
+      - name: node-mongo-app-single-pod
+        image: 080bct12/node-mongo-app:03 # Custom Node.js app image from DockerHub
+      - name: mongodb
+        image: mongo:8.0 # Official MongoDB image from DockerHub
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  
+  name: service-node-mongo-app-single-pod
+spec:
+  ports:
+    # Accept traffic sent to port 8080 on the Service
+    # and forward it to port 3000 on the Pod containers  
+    - name: http
+      port: 8080
+      targetPort: 3000
+  selector:
+    
+    app: node-mongo-app-single-pod # must match the label of the Pods / template in deployment-node-app.yml
+ 
+  
+  # to distribute traffic across the Pods
+  type: LoadBalancer # Options: ClusterIP (Default), NodePort, LoadBalancer

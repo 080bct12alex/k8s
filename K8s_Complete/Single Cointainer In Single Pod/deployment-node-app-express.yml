@@ -1,0 +1,23 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Unique key of the Deployment instance
+  name: node-app-express
+spec:
+  # At least 2 Pods replicas should exist at all times.
+  replicas: 1  # Number of Pods replicas to run at any given time 
+  selector:
+    matchLabels:
+      app: node-app-express  # Matches the label of the Pods / template below 
+
+  template:
+    metadata:
+      labels: #Apply this label to pods
+              # Unique key of the Pod instance
+        app: node-app-express # used by the Deployment to identify Pods 
+                        # and by the Service to select Pods to expose to the network  
+    spec:
+      # Single Pod with single Container
+      containers:
+      - name: node-app-express
+        image: 080bct12/node-app:01 # Custom Node.js app image from DockerHub

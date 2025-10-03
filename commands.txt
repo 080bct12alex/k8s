@@ -1,0 +1,34 @@
+* Minikube Installation Guides:    https://minikube.sigs.k8s.io/docs/start/
+
+
+kubectl apply -f <filename>.yaml
+
+kubectl get all
+
+kubectl get <resource-name>
+
+kubectl get pods
+
+kubectl logs <pod-name>
+
+kubectl expose deployment <deployment-name> --type=LoadBalancer --port=80 --target-port=8080
+
+kubectl scale deployment <deployment-name> --replicas=<number>
+
+kubectl delete pod <pod-name>
+
+kubectl help   --> Provides an overview of all available sub-commands.
+
+
+
+docker build -t yourdockerhubusername/your-app-name:latest .
+docker images
+docker rmi       #remove easily by adding imageid
+docker ps    #containers
+docker ps -a
+
+docker run -p 3000:3000 yourdockerhubusername/your-app-name:latest
+
+docker login
+
+docker push yourdockerhubusername/your-app-name:latest

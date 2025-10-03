@@ -1,0 +1,30 @@
+
+- hostpath volume k8s config
+
+- from image of express_file  
+   - refers node-file-app:02     as 01 has some error  
+
+   
+   COMMANDS: (order matter)    
+    kubectl apply -f node-file-app.yml
+    kubectl get all
+   
+    minikube service service-node-app
+
+
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-file-app:01 .
+docker login
+docker push 080bct12/node-file-app:01
+
+
+new update--> node-file-app:02
+
+docker build -t 080bct12/node-file-app:02 .
+docker login
+docker push 080bct12/node-file-app:02 
+
+
+

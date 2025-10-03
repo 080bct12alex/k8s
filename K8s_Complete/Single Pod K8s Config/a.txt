@@ -1,0 +1,22 @@
+
+
+- run multiple containers in single pod
+   - connect mongodb using host,port hardcoded  i.e using localhost  
+    as container share same network ip ,resorce  in same pod
+  
+  -  refered image--> node-mongo-app:03      as 01 has error
+  -  express connect mongodb using host,port hardcoded 
+
+###
+COMMANDS: (order matter)
+kubectl apply -f deployment-node-mongo-app.yml
+minikube service service-node-mongo-app-single-pod
+
+Monitor the status of  deployments, pods, and services.
+     kubectl get all
+     minikube dashboard
+
+###
+limitation:
+here can come a issue if we use 2 pod/replica in deployment yml
+Even containers  keep in single pod, k8s try to use any of the replicas mention in  deployment yml  that can cause loss of data if any replicas deleted abd also cause in consistency

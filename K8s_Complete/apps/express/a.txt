@@ -1,0 +1,15 @@
+
+- For single cointainer in single pod 
+= its image--> node-app:01
+- simple react app
+
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-app:01 .
+docker run --name node-app-01 -p 3000:3000 -d 080bct12/node-app:01
+docker login
+docker push 080bct12/node-app:01
+
+
+

@@ -1,0 +1,77 @@
+
+- For single cointainer in single pod 
+   = refer image -->  node-app:01 ---> simple react app
+   
+###
+COMMANDS: (order matter)
+kubectl apply -f deployment-node-app-express.yml
+kubectl apply -f service-node-app-express.yml
+minikube service service-node-app-express
+
+
+Monitor the status of  deployments, pods, and services.
+     kubectl get all
+     minikube dashboard
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-app:01 .
+docker login
+docker push 080bct12/node-app:01
+
+### Note: yourdockerhubusername/your-app-name:latest
+                  or
+          yourdockerhubusername/your-app-name:v1
+                   or                               for version 
+          yourdockerhubusername/your-app-name:01     
+
+
+
+
+### Note:
+Deployment and Service  and others can be in same file by separating deployment and service by ---  i.e any individual task seperation by ---
+
+In this way
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  # Unique key of the Deployment instance
+  name: node-app-express
+spec:
+  # 3 Pods should exist at all times.
+  replicas: 1  # Number of Pods to run at any given time 
+  selector:
+    matchLabels:
+      app: node-app-express  # Matches the label of the Pods / template below 
+
+  template:
+    metadata:
+      labels: #Apply this label to pods
+              # Unique key of the Pod instance
+        # the Deployment label selector above matches this label 
+        app: node-app-express # used by the Deployment to identify Pods 
+                        # and by the Service to select Pods to expose to the network  
+    spec:
+      # Single Pod with single Container
+      containers:
+      - name: node-app-express
+        image: 080bct12/node-app:01 # Custom Node.js app image from DockerHub
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-node-app-express
+spec:
+  ports:
+    - name: http
+      port: 8000         # Port exposed by the Service
+      targetPort: 3000   # Port on which Node.js app is running inside the Pod
+  selector:
+    app: node-app-express
+  type: LoadBalancer
+
+
+ or put in different file and apply individual as now in this Single Cointainer In Single Pod 

@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: PersistentVolume  
+metadata:
+  name: host-pv # name to be used in pvc file
+spec:
+  capacity:
+    storage: 1Gi 
+  volumeMode: Filesystem   # alternative are  Block (rarely used)
+  storageClassName: standard  # alternatives are manual, fast, slow ,
+  accessModes:
+    - ReadWriteOnce  # alternatives are ReadOnlyMany, ReadWriteMany
+  hostPath:      # recommended local for local use 
+    path: /data/     # path on the host node
+    type: DirectoryOrCreate  # other options are: Directory, File, Socket, CharDevice, Block, FileOrCreate

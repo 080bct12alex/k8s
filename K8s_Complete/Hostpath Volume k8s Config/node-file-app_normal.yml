@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: node-file-app 
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: node-file-app
+  template:
+    metadata:
+      labels:
+        app: node-file-app
+    spec:
+      containers:
+      - name: node-file-app
+        image: 080bct12/node-file-app:01
+        volumeMounts: # from here added for hostPath volume
+                      # without this, data will be lost when pod restarts
+          - mountPath: /app/email.txt
+            name: my-vol
+      volumes:
+        - name: my-vol
+          hostPath:
+            path: /mydata/email.txt
+            type: FileOrCreate
+
+
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: service-node-app
+spec:
+  ports: 
+    - name: http 
+      port: 8080
+      targetPort: 3000
+  selector:
+    app: node-file-app
+  type: LoadBalancer

@@ -1,0 +1,17 @@
+###
+express :node-app connect with mongodb
+
+1.run multiple containers in single pod
+   -  refered image--> node-mongo-app:03   as 01 has error  
+      - as express connect mongodb using host,port hardcoded i.e using localhost
+
+###
+Docker COMMANDS:
+docker build -t 080bct12/node-mongo-app:01 .
+docker run --name node-mongo-app=01 -p 4000:3000 --link mongo -d 080bct12/node-mongo-app:01
+docker login
+docker push 080bct12/node-mongo-app:01
+
+new 
+docker build -t 080bct12/node-mongo-app:03 .
+docker push 080bct12/node-mongo-app:03
